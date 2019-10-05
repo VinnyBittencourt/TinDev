@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   KeyboardAvoidingView,
   Platform,
@@ -11,7 +11,14 @@ import {
 
 import logo from '../assets/logo.png';
 
-export default function Login() {
+export default function Login({navigation}) {
+  const [user, setUser] = useState('');
+
+  function handleLogin() {
+    navigation.navigate('Main');
+    console.log(user);
+  }
+
   return (
     <KeyboardAvoidingView
       behavior="padding"
@@ -25,9 +32,11 @@ export default function Login() {
         placeholder="Digite seu usuário no GitHub"
         placeholderTextColor="#999"
         style={styles.input}
+        value={user}
+        onChangeText={setUser}
       />
 
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity onPress={handleLogin} style={styles.button}>
         <Text style={styles.buttonText}>Enviar</Text>
       </TouchableOpacity>
     </KeyboardAvoidingView>
