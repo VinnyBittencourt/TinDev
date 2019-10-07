@@ -9,14 +9,18 @@ import {
   Text,
 } from 'react-native';
 
+import api from '../services/api';
+
 import logo from '../assets/logo.png';
 
 export default function Login({navigation}) {
   const [user, setUser] = useState('');
 
-  function handleLogin() {
-    navigation.navigate('Main');
-    console.log(user);
+  async function handleLogin() {
+    const response = await api.post('/devs', {username: user});
+    const {_id} = response.data;
+    console.log(_id);
+    navigation.navigate('Main', {_id});
   }
 
   return (
